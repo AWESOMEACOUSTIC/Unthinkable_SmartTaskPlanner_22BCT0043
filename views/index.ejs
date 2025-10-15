@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+  
+  <main class="container">
+    <div class="hero">
+      <h1>Welcome to Smart Task Planner</h1>
+      <p>Organize your tasks with AI-powered intelligence</p>
+      <div class="hero-buttons">
+        <a href="/tasks" class="btn btn-primary">View Tasks</a>
+        <a href="/tasks/new" class="btn btn-secondary">Create New Task</a>
+      </div>
+    </div>
+    
+    <section class="features">
+      <h2>Features</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>🤖 AI Suggestions</h3>
+          <p>Get intelligent task recommendations powered by Gemini AI</p>
+        </div>
+        <div class="feature-card">
+          <h3>📊 Priority Management</h3>
+          <p>Automatically prioritize tasks based on urgency and importance</p>
+        </div>
+        <div class="feature-card">
+          <h3>📅 Smart Scheduling</h3>
+          <p>Organize tasks with due dates and categories</p>
+        </div>
+        <div class="feature-card">
+          <h3>✅ Track Progress</h3>
+          <p>Monitor task status and completion</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <%- include('partials/footer') %>
+  
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('../partials/header') %>
+  
+  <main class="container">
+    <div class="page-header">
+      <h1>All Tasks</h1>
+      <a href="/tasks/new" class="btn btn-primary">+ New Task</a>
+    </div>
+    
+    <% if (tasks.length === 0) { %>
+      <div class="empty-state">
+        <p>No tasks yet. Create your first task!</p>
+        <a href="/tasks/new" class="btn btn-primary">Create Task</a>
+      </div>
+    <% } else { %>
+      <div class="tasks-grid">
+        <% tasks.forEach(task => { %>
+          <div class="task-card priority-<%= task.priority %> status-<%= task.status %>">
+            <div class="task-header">
+              <h3><a href="/tasks/<%= task._id %>"><%= task.title %></a></h3>
+              <span class="badge badge-<%= task.priority %>"><%= task.priority %></span>
+            </div>
+            <p class="task-description"><%= task.description || 'No description' %></p>
+            <div class="task-meta">
+              <span class="status"><%= task.status %></span>
+              <% if (task.dueDate) { %>
+                <span class="due-date">Due: <%= new Date(task.dueDate).toLocaleDateString() %></span>
+              <% } %>
+            </div>
+            <div class="task-actions">
+              <a href="/tasks/<%= task._id %>/edit" class="btn btn-sm">Edit</a>
+              <form action="/tasks/<%= task._id %>?_method=DELETE" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+              </form>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </main>
+  
+  <%- include('../partials/footer') %>
+  
+  <script src="/js/main.js"></script>
+</body>
+</html>

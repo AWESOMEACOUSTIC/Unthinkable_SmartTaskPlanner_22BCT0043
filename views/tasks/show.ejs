@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('../partials/header') %>
+  
+  <main class="container">
+    <div class="task-detail">
+      <div class="task-detail-header">
+        <h1><%= task.title %></h1>
+        <div class="task-badges">
+          <span class="badge badge-<%= task.priority %>"><%= task.priority %></span>
+          <span class="badge badge-status-<%= task.status %>"><%= task.status %></span>
+        </div>
+      </div>
+      
+      <div class="task-detail-body">
+        <div class="detail-section">
+          <h3>Description</h3>
+          <p><%= task.description || 'No description provided' %></p>
+        </div>
+        
+        <div class="detail-section">
+          <h3>Details</h3>
+          <dl>
+            <dt>Category:</dt>
+            <dd><%= task.category || 'Uncategorized' %></dd>
+            
+            <dt>Due Date:</dt>
+            <dd><%= task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No due date' %></dd>
+            
+            <dt>Created:</dt>
+            <dd><%= new Date(task.createdAt).toLocaleString() %></dd>
+            
+            <dt>Last Updated:</dt>
+            <dd><%= new Date(task.updatedAt).toLocaleString() %></dd>
+          </dl>
+        </div>
+        
+        <% if (task.tags && task.tags.length > 0) { %>
+          <div class="detail-section">
+            <h3>Tags</h3>
+            <div class="tags">
+              <% task.tags.forEach(tag => { %>
+                <span class="tag"><%= tag %></span>
+              <% }); %>
+            </div>
+          </div>
+        <% } %>
+        
+        <% if (task.aiSuggestions) { %>
+          <div class="detail-section">
+            <div class="ai-suggestions-box" style="display: block;">
+              <div class="ai-suggestions-header">
+                <span class="ai-icon">🤖</span>
+                <h4>AI-Powered Task Analysis</h4>
+              </div>
+              <div class="ai-suggestions-content">
+                <%- task.aiSuggestions
+                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                    .replace(/\n\n+/g, '</p><p>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/^(.*)$/, '<p>$1</p>')
+                    .replace(/(\d+\.)\s/g, '<br><br><strong>$1</strong> ')
+                    .replace(/<br>-\s/g, '<br>• ')
+                    .replace(/([📋🎯⏱️⚠️❌✅🛠️📊])\s*<strong>/g, '<br><br>$1 <strong style="font-size: 1.15rem;">')
+                    .replace(/(<br>){3,}/g, '<br><br>') %>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+      
+      <div class="task-detail-actions">
+        <a href="/tasks/<%= task._id %>/edit" class="btn btn-primary">Edit Task</a>
+        <form action="/tasks/<%= task._id %>?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this task?')">Delete Task</button>
+        </form>
+        <a href="/tasks" class="btn btn-secondary">Back to Tasks</a>
+      </div>
+    </div>
+  </main>
+  
+  <%- include('../partials/footer') %>
+  
+  <script src="/js/main.js"></script>
+</body>
+</html>
