@@ -83,7 +83,7 @@ GEMINI_API_KEY=your-gemini-api-key-here
 
 ## Problems Faced & Solutions
 
-During development, we encountered several challenges that were successfully resolved:
+During development, I encountered several challenges that were successfully resolved:
 
 ### 1. ❌ Gemini API Model Compatibility Issue
 
