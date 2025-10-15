@@ -305,7 +305,7 @@ function formatAISuggestions(text) {
 
 ---
 
-## Key Takeaways
+## Key Takeaways I Understood
 
 1. **Always check API documentation** for latest model names and supported features
 2. **Keep dependencies updated** but watch for breaking changes
